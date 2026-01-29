@@ -1,0 +1,60 @@
+// prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  CLIENT
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  name      String?
+  role      Role     @default(CLIENT)
+  createdAt DateTime @default(now())
+  apps      App[]
+}
+
+model App {
+  id             String   @id @default(cuid())
+  
+  // Datos inmutables por el cliente (Configurados por Admin)
+  name           String   // Nombre de la App/Radio
+  slug           String   @unique // Identificador URL (ej: radio-power)
+  streamUrl      String   // URL del streaming de audio
+  ownerEmail     String   
+  
+  // Personalización (Editable por cliente)
+  primaryColor   String   @default("#000000")
+  secondaryColor String   @default("#ffffff")
+  description    String?  // Para SEO y meta tags
+  
+  // Recursos gráficos (URLs de R2)
+  logoUrl        String?  
+  backgroundUrl  String?
+  iconUrl        String?  // Icono para la instalación PWA (512x512)
+
+  // Redes Sociales
+  facebookUrl    String?
+  instagramUrl   String?
+  whatsappUrl    String?
+  websiteUrl     String?
+
+  // Estado del sistema
+  isPublished    Boolean  @default(true)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  
+  // Relación
+  userId         String
+  user           User     @relation(fields: [userId], references: [id])
+}

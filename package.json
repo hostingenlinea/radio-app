@@ -1,10 +1,28 @@
 {
+  "name": "radio-app",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.978.0",
-    "@aws-sdk/s3-request-presigner": "^3.978.0",
-    "@prisma/client": "^6.0.0"
+    "next": "14.1.0",
+    "react": "^18",
+    "react-dom": "^18",
+    "@prisma/client": "6.0.0",
+    "@aws-sdk/client-s3": "^3.0.0",
+    "@aws-sdk/s3-request-presigner": "^3.0.0"
   },
   "devDependencies": {
-    "prisma": "^6.0.0"
+    "prisma": "6.0.0",
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "typescript": "^5",
+    "postcss": "^8",
+    "tailwindcss": "^3"
   }
 }
